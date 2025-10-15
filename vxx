@@ -3,9 +3,6 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sigma
 local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/addons/ThemeManager.lua"))()
 local SaveManager  = loadstring(game:HttpGet("https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/addons/SaveManager.lua"))()
 
-------------------------------------------------------
--- WINDOW SETUP
-------------------------------------------------------
 local Window = Library:CreateWindow({
     Title = 'Execly.gay',
     Center = true,
@@ -20,10 +17,6 @@ local Tabs = {
     World = Window:AddTab('World'),
     ['UI Settings'] = Window:AddTab('UI Settings'),
 }
-
-------------------------------------------------------
--- COMBAT TAB
-------------------------------------------------------
 
 -- Aimbot
 local AimbotGroupBox = Tabs.Combat:AddLeftGroupbox('Aimbot')
@@ -65,10 +58,6 @@ MagicBulletGroupBox:AddDropdown('MagicBulletBehaviorDropdown', {
     Callback = function(Value) print('[cb] MagicBullet behavior set to:', Value) end
 })
 Toggles.MagicBulletToggle:OnChanged(function() print('[cb] MagicBulletToggle changed to:', Toggles.MagicBulletToggle.Value) end)
-
-------------------------------------------------------
--- COMBAT RIGHT SIDE
-------------------------------------------------------
 
 -- Hitbox Expander (right)
 local CombatRightGroupBox = Tabs.Combat:AddRightGroupbox('Hitbox Expander')
@@ -117,9 +106,6 @@ FOVCircleGroupBox:AddLabel('FOV Circle Color'):AddColorPicker('FOVCircleColor', 
     Tooltip = 'Pick the FOV circle color',
 })
 
-------------------------------------------------------
--- VISUALS TAB
-------------------------------------------------------
 local TabBox = Tabs.Visuals:AddLeftTabbox()
 local TabESP = TabBox:AddTab('Player ESP')
 TabESP:AddToggle('PlayerESPEnableToggle', { Text = 'Enable' })
@@ -147,14 +133,10 @@ TabESP2:AddToggle('ObjectESPnamesToggle', { Text = 'Names' })
 TabESP2:AddToggle('ObjectESPdistanceToggle', { Text = 'Distance' })
 TabESP2:AddToggle('ObjectESPtracersToggle', { Text = 'Tracers' })
 
-------------------------------------------------------
--- WORLD TAB
-------------------------------------------------------
 local LeftGroupbox = Tabs.World:AddLeftGroupbox('World Visuals')
 LeftGroupbox:AddLabel('Configure world visuals below!')
 LeftGroupbox:AddDivider()
 
--- Ambient Lighting Toggle + slider in dependency box
 LeftGroupbox:AddToggle('AmbientLightingToggle', { Text = 'Ambient Lighting', Default = false, Tooltip = 'Enable to adjust ambient lighting' })
 local AmbientDepbox = LeftGroupbox:AddDependencyBox()
 AmbientDepbox:AddSlider('AmbientLightingSlider', {
@@ -165,7 +147,6 @@ AmbientDepbox:SetupDependencies({ { Toggles.AmbientLightingToggle, true } })
 Toggles.AmbientLightingToggle:OnChanged(function() print('AmbientLightingToggle changed to:', Toggles.AmbientLightingToggle.Value) end)
 Options.AmbientLightingSlider:SetValue(1)
 
--- Skyboxes Toggle + dropdown
 LeftGroupbox:AddToggle('SkyboxesToggle', { Text = 'Skyboxes', Default = false, Tooltip = 'Enable to customize skybox visuals' })
 local SkyboxesDepbox = LeftGroupbox:AddDependencyBox()
 SkyboxesDepbox:AddDropdown('SkyboxesDropdown', {
@@ -176,7 +157,6 @@ SkyboxesDepbox:SetupDependencies({ { Toggles.SkyboxesToggle, true } })
 Toggles.SkyboxesToggle:OnChanged(function() print('SkyboxesToggle changed to:', Toggles.SkyboxesToggle.Value) end)
 Options.SkyboxesDropdown:SetValue('Default')
 
--- Watermark Toggle and Color
 LeftGroupbox:AddToggle('WatermarkToggle', { Text = 'Watermark', Default = false, Tooltip = 'Enable to show watermark' })
 local WatermarkDepbox = LeftGroupbox:AddDependencyBox()
 WatermarkDepbox:AddLabel('Watermark Color'):AddColorPicker('WatermarkColorPicker', {
@@ -189,11 +169,9 @@ WatermarkDepbox:SetupDependencies({ { Toggles.WatermarkToggle, true } })
 Toggles.WatermarkToggle:OnChanged(function() print('WatermarkToggle changed to:', Toggles.WatermarkToggle.Value) end)
 Options.WatermarkColorPicker:SetValueRGB(Color3.fromRGB(255,255,255))
 
--- FPS Counter Toggle
 LeftGroupbox:AddToggle('FPSCounter', { Text = 'FPS Counter', Default = false, Tooltip = 'Displays FPS and performance metrics' })
 Toggles.FPSCounter:OnChanged(function() print('FPSCounter changed to:', Toggles.FPSCounter.Value) end)
 
--- Freecam Toggle + keypicker in dependency box
 LeftGroupbox:AddToggle('FreecamToggle', { Text = 'Freecam', Default = false, Tooltip = 'Enable free camera movement' })
 local FreecamDepbox = LeftGroupbox:AddDependencyBox()
 FreecamDepbox:AddLabel('Freecam Key'):AddKeyPicker('FreecamKeyPicker', {
@@ -204,17 +182,14 @@ FreecamDepbox:SetupDependencies({ { Toggles.FreecamToggle, true } })
 Toggles.FreecamToggle:OnChanged(function() print('FreecamToggle changed to:', Toggles.FreecamToggle.Value) end)
 Options.FreecamKeyPicker:SetValue({ 'F', 'Toggle' })
 
--- X-Ray Toggle
 LeftGroupbox:AddToggle('XRay', { Text = 'X-Ray', Default = false, Tooltip = 'Enables see-through walls for objects' })
 Toggles.XRay:OnChanged(function() print('XRay changed to:', Toggles.XRay.Value) end)
 
--- Camera controls on right
 local CameraTabbox = Tabs.World:AddRightTabbox()
 local CameraControlsTab = CameraTabbox:AddTab('Camera Controls')
 CameraControlsTab:AddLabel('Adjust camera settings below!')
 CameraControlsTab:AddDivider()
 
--- FOV Camera
 CameraControlsTab:AddToggle('FOVCameraToggle', { Text = 'FOV Camera', Default = false, Tooltip = 'Enable to adjust field of view' })
 local FOVDepbox = CameraControlsTab:AddDependencyBox()
 FOVDepbox:AddSlider('FOVCameraSlider', { Text = 'FOV Camera Slider', Default = 60, Min = 30, Max = 120, Rounding = 0 })
@@ -222,7 +197,6 @@ FOVDepbox:SetupDependencies({ { Toggles.FOVCameraToggle, true } })
 Toggles.FOVCameraToggle:OnChanged(function() print('FOVCameraToggle changed to:', Toggles.FOVCameraToggle.Value) end)
 Options.FOVCameraSlider:SetValue(60)
 
--- Zoom ability
 CameraControlsTab:AddToggle('ZoomAbilityToggle', { Text = 'Zoom Ability', Default = false, Tooltip = 'Enable to adjust zoom level' })
 local ZoomDepbox = CameraControlsTab:AddDependencyBox()
 ZoomDepbox:AddSlider('ZoomAbilitySlider', { Text = 'Zoom Ability Slider', Default = 1, Min = 0.5, Max = 5, Rounding = 1 })
@@ -234,9 +208,6 @@ Toggles.ZoomAbilityToggle:OnChanged(function() print('ZoomAbilityToggle changed 
 Options.ZoomAbilitySlider:SetValue(1)
 Options.ZoomKeyPicker:SetValue({ 'Z', 'Toggle' })
 
-------------------------------------------------------
--- WATERMARK + DRAWING (kept intact)
-------------------------------------------------------
 local RunService = game:GetService("RunService")
 local watermarkEnabled = true
 local watermarkText = Drawing.new("Text")
@@ -290,9 +261,6 @@ Library:OnUnload(function()
     Library.Unloaded = true
 end)
 
-------------------------------------------------------
--- UI SETTINGS (fixed)
-------------------------------------------------------
 local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu Controls')
 MenuGroup:AddButton('Unload', function() Library:Unload() end)
 MenuGroup:AddLabel('Menu Keybind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu Keybind' })
@@ -314,9 +282,6 @@ UITools:AddLabel('Configuration Settings')
 SaveManager:BuildConfigSection(Tabs['UI Settings'])
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
 
-------------------------------------------------------
--- SAVE / THEME SETTINGS
-------------------------------------------------------
 SaveManager:IgnoreThemeSettings()
 SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
 
